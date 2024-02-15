@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azumi QuickCount</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta property="og:title" content=Azumi QuickCount>
+    <meta property="og:site_name" content=Azumi dev>
+    <meta property="og:url" content=quickcount.azumidev.my.id>
+    <meta property="og:description" content=QuickCount pemilu by Azumi dev>
+    <meta property="og:type" content="">
+    <meta property="og:image" content=https://quickcount.azumidev.my.id/img/kpulogo.webp>
+</head>
+<body>
+    <div class="bg-slate-200 w-full min-h-[100vh] py-5">
+        <h1 class="text-center font-sans font-bold text-3xl">Quickcount</h1>
+        <%if (result.status == "error") {%>
+            <div class="flex justify-center items-center h-[70vh]">
+                <div class="bg-white rounded-md px-10 py-4 mx-5 my-5">
+                    <h4 class="text-center font-bold text-xl my-2">Error Server</h4>
+                    <p><%=result.e%></p>
+                    <p class="mt-5">Last check : <%=result.lastcheck%></p>
+                </div>
+            </div>
+        <%}%>
+        <div class="md:grid grid-flow-row-dense md:grid-cols-2 2xl:grid-cols-3 mx-3 sm:mx-14 md:mx-24 lg:mx-32">
+            <%for(let i = 0; i < result.length; i++){%>
+                <div class="bg-white rounded-md px-3 py-1 mx-5 my-5">
+                    <div class="h-[5rem] mt-5 flex justify-center items-center align-middle">
+                        <image src="<%=result[i].image%>" class="w-[8rem]"></image>
+                    </div>
+                    <div class="grid grid-flow-col grid-cols-3">
+                        <div class="block">
+                            <image src="https://asset.kompas.com/data/2024/02/05/pemilu/desktop/images/widget/quick-count/paslon-1.png" class="w-[15rem] mx-auto">
+                            <h3 class="text-center font-sans font-bold text-2xl sm:text-lg lg:text-xl xl:text-2xl"><%=result[i].qc[0].qc_percent%>%</h3>
+                        </div>
+                        <div class="block">
+                            <image src="https://asset.kompas.com/data/2024/02/05/pemilu/mobile/images/widget/quick-count/paslon-2.png" class="w-[15rem] mx-auto">
+                            <h3 class="text-center font-sans font-bold text-2xl sm:text-lg lg:text-xl xl:text-2xl"><%=result[i].qc[1].qc_percent%>%</h3>
+                        </div>
+                        <div class="block">
+                            <image src="https://asset.kompas.com/data/2024/02/05/pemilu/mobile/images/widget/quick-count/paslon-3.png" class="w-[15rem] mx-auto">
+                            <h3 class="text-center font-sans font-bold text-2xl sm:text-lg lg:text-xl xl:text-2xl"><%=result[i].qc[2].qc_percent%>%</h3>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mx-2 my-10">
+                        <h6 class="font-semibold">Update: <br><%=result[i].update%></h6>
+                        <h6 class="font-semibold">Data Masuk: <br><%=result[i].last_data%></h6>
+                    </div>
+                </div>
+            <%}%>
+        </div>
+        <%if (result.status != "error") {%>
+            <div class="bg-white rounded-md px-10 py-4 mx-5 my-5">
+                <p>Last check : <%=result.lastcheck%></p>
+            </div>
+        <%}%>
+    </div>
+    <div class="bg-white rounded-md px-10 py-4">
+        <p>© 2024 Naufal Azmi. All Rights Reserved.</p>
+    </div>
+</body>
+</html>

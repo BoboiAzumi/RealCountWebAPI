@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azumi Realcount</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <meta property="og:title" content="Azumi RealCount">
+    <meta property="og:site_name" content="Azumi dev">
+    <meta property="og:url" content="quickcount.azumidev.my.id">
+    <meta property="og:description" content="RealCount pemilu by Azumi dev">
+    <meta property="og:type" content="">
+    <meta property="og:image" content="https://quickcount.azumidev.my.id/img/kpulogo.webp">
+</head>
+<body>
+    <div class="bg-slate-200 w-full min-h-[100vh] py-5">
+        <h1 class="text-center font-sans font-bold text-3xl">Real Count KPU</h1>
+        <%if (result.status == "error") {%>
+            <div class="flex justify-center items-center h-[70vh]">
+                <div class="bg-white rounded-md px-10 py-4 mx-5 my-5">
+                    <h4 class="text-center font-bold text-xl my-2">Error Server</h4>
+                    <p><%=result.e%></p>
+                    <p class="mt-5">Last check : <%=result.lastcheck%></p>
+                </div>
+            </div>
+        <%}%>
+        <div class="md:grid grid-flow-row-dense md:grid-cols-2 2xl:grid-cols-3 mx-3 sm:mx-14 md:mx-24 lg:mx-32">
+            <%for(let i = 0; i < result.paslon.length; i++){%>
+                <div class="bg-white rounded-md px-3 py-6 mx-5 my-5">
+                    <div class="mt-5 flex justify-center items-center align-middle">
+                        <image src="<%=result.paslon[i].image%>" class="w-[13rem]">
+                    </div>
+                    <div class="mx-8 my-6">
+                        <h4 class="font-bold text-sm sm:text-lg"><%=result.paslon[i].nama%></h4>
+                    </div>
+                    <div class="mb-10">
+                        <p class="font-semibold text-xl text-center">Perolehan Suara</p>
+                        <p class="font-normal text-xl text-center"><%=result.paslon[i].suara.toLocaleString('id-ID')%></p>
+                        <p class="font-normal text-center">(<%=result.paslon[i].persen.toLocaleString('id-ID')%> %)</p>
+                    </div>
+                </div>
+            <%}%>
+        </div>
+        <%if (result.status != "error") {%>
+            <div class="bg-white rounded-md px-10 py-4 mx-5 my-5">
+                <p>Total suara masuk: <%=result.persen%>%</p>
+                <p>Catatan : Data sesuai dengan KPU</p>
+            </div>
+            <div class="bg-white rounded-md px-10 py-4 mx-5 my-5">
+                <h3 class="text-xl font-sans font-bold text-center mb-3">Berdasarkan Wilayah</h3>
+                <div class="overflow-x-auto">
+                    <table class="border-collapse border border-slate-200 border-spacing-10">
+                        <tr>
+                            <th class="border border-slate-200 px-5 py-2 bg-slate-200">Provinsi</th>
+                            <th class="border border-slate-200 px-5 py-2 bg-slate-200">Progress</th>
+                            <th class="border border-slate-200 px-5 py-2 bg-slate-200 w-[20vw]"><%=result.paslon[0].nama%></th>
+                            <th class="border border-slate-200 px-5 py-2 bg-slate-200 w-[20vw]"><%=result.paslon[1].nama%></th>
+                            <th class="border border-slate-200 px-5 py-2 bg-slate-200 w-[20vw]"><%=result.paslon[2].nama%></th>
+                        </tr>
+                        <%for (let i = 0; i < result.wilayah.length; i++){%>
+                            <tr>
+                                <td class="border border-slate-200 px-5 py-2 text-gray-700"><%=result.wilayah[i].nama%></td>
+                                <td class="border border-slate-200 px-5 py-2 text-gray-700"><%=result.wilayah[i].persen%>%</td>
+                                <%for (let j = 0; j < result.wilayah[i].progress.length; j++){%>
+                                    <td class="border border-slate-200 px-5 py-2 text-gray-700"><%=result.wilayah[i].progress[j].suara.toLocaleString("id-ID")%><br>
+                                        (<%=result.wilayah[i].progress[j].persen%>%)<br>
+                                        <p class="text-[0.6rem]">(<%=result.wilayah[i].progress[j].nama%>)</p>
+                                    </td>
+                                <%}%>
+                            </tr>
+                        <%}%>
+                    </table>
+                </div>
+            </div>
+            <div class="bg-white rounded-md px-10 py-4 mx-5 my-5">
+                <p>Last check (Server): <%=result.lastcheck%></p>
+            </div>
+        <%}%>
+    </div>
+    <div class="bg-white rounded-md px-10 py-4">
+        <p>© 2024 Naufal Azmi. All Rights Reserved.</p>
+    </div>
+</body>
+</html>
