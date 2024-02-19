@@ -25,7 +25,7 @@
             </div>
         <%}%>
         <div class="md:grid grid-flow-row-dense md:grid-cols-2 2xl:grid-cols-3 mx-3 sm:mx-14 md:mx-24 lg:mx-32">
-            <%for(let i = 0; i < result.paslon.length; i++){%>
+            <%for(let i = 0; i < (result.paslon? result.paslon.length : 0); i++){%>
                 <div class="bg-white rounded-md px-3 py-6 mx-5 my-5">
                     <div class="mt-5 flex justify-center items-center align-middle">
                         <image src="<%=result.paslon[i].image%>" class="w-[13rem]">
