@@ -1,4 +1,4 @@
-const { get_api } = require("../get_api")
+const { get_api } = require("../../src/model/get_api")
 async function modeling_legacy(){
     // GET LSP
     const lsp = await get_api(wilayah, "lsp");
